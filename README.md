@@ -1,4 +1,4 @@
-# PlantUML auto generate image diagram
+# PlantUML auto generate image
 
 This extension automatically generates an image from the source code of a PlantUML diagram. The generation is performed by saving a file with one of the extensions associated with PlantUML: `.wsd, .pu, .puml, .plantuml, .iuml`.
 
@@ -6,7 +6,7 @@ The extension also provides a command available in the command palette (`F1` or 
 
 ## Features
 
-### Generar imagen de diagrama
+### Generate diagram image
 
 ![demo](/assets/screenshot-generate-diagram.gif)
 

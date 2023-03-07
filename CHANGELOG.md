@@ -6,6 +6,10 @@ All notable changes to the "plantumlautogenerator" extension will be documented 
 
 No changes.
 
+## 0.0.2
+
+- README.md file improvements.
+
 ## 0.0.1
 
 - Initial release.
