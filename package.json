@@ -1,7 +1,7 @@
 {
   "name": "plantumlautogenerator",
-  "displayName": "plantumlautogenerator",
-  "description": "PlantUML automatic image generator",
+  "displayName": "PlantUML auto generator",
+  "description": "PlantUML automatic image diagram generator",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.75.0"
@@ -9,13 +9,39 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "repository": {"type": "git", "url": "https://github.com/goohan/plantumlautogenerator"},
+  "icon": "assets/icon.png",
+  "license": "MIT",
+  "publisher": "goohan",
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "plantumlautogenerator.helloWorld",
-        "title": "Hello World"
+        "command": "plantumlautogenerator.generatediagramimage",
+        "title": "Generate diagram image"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "plantumlautogenerator.generatediagramimage",
+          "when": "resourceLangId == plantuml"
+        }
+      ]
+    },
+    "languages": [
+      {
+        "id": "plantuml",
+        "extensions": [
+          ".wsd",
+          ".pu",
+          ".puml",
+          ".plantuml",
+          ".iuml"
+        ],
+        "aliases": [
+          "PlantUML"
+        ]
       }
     ]
   },

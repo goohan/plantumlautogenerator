@@ -3,9 +3,9 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
-import * as plantUml from 'node-plantuml'
+var plantUml = require('node-plantuml');
 
-const style = path.resolve(__dirname, '.plantstyles');
+const style = path.resolve(__dirname, '..', 'resources/.plantstyles');
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -15,16 +15,32 @@ export function activate(context: vscode.ExtensionContext) {
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "plantumlautogenerator" is now active!');
 
+	// Handle event that fires when Save document occurs.
+	vscode.workspace.onDidSaveTextDocument((document: vscode.TextDocument) => {
+		if (document.languageId === 'plantuml')
+		{
+			vscode.window.showInformationMessage('PlantUML diagram image will be generated!');
+			generateDiagram(document.fileName);
+		}
+		else{
+			log('Document language is not plantUML');
+		}
+	});
+	
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('plantumlautogenerator.helloWorld', () => {
+	let disposable = vscode.commands.registerCommand('plantumlautogenerator.generatediagramimage', () => {
 		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from plantumlautogenerator!');
-		
-		generateDiagram(vscode.window.activeTextEditor?.document.fileName);
-
+		// Display a message box to the user				
+		if (vscode.window.activeTextEditor?.document.languageId === 'plantuml')
+		{
+			vscode.window.showInformationMessage('PlantUML diagram image will be generated!');		
+			generateDiagram(vscode.window.activeTextEditor.document.fileName);
+		}
+		else {
+			log('Document is not plantUML languaje.');
+		}
 	});
 
 	context.subscriptions.push(disposable);
@@ -46,14 +62,20 @@ function log(message: string) {
  * Generates/regenerates a diagram based on a PlantUML file.
  * @param {string} pathToFile - The absolute file path to the PlantUML file.
  */
-function generateDiagram(pathToFile: string) {
-	cleanupDiagram(pathToFile);
+function generateDiagram(pathToFile: string | undefined) {
+	if(pathToFile === undefined){
+		log("Undefined target file. No diagram will be generated.");
+		return;
+	}
+	//cleanupDiagram(pathToFile);
 	const diagramPath = calculateDiagramPath(pathToFile);
 	log("Generating " + diagramPath);
 	try {
+		console.log("diagram generating...");
 		const gen = plantUml.generate(pathToFile, { format: "png", config: style });
 		gen.out.pipe(fs.createWriteStream(diagramPath));
-	} catch (error) {
+	}
+	catch (error) {
 		console.error(error);
 	}
 }
