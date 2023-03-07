@@ -2,7 +2,7 @@
   "name": "plantumlautogenerator",
   "displayName": "PlantUML auto generator",
   "description": "PlantUML automatic image generator",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -13,6 +13,13 @@
   "icon": "assets/icon.png",
   "license": "MIT",
   "publisher": "goohan",
+  "keywords": [
+    "PlantUML",
+    "auto",
+    "automatic",
+    "image",
+    "generator"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [

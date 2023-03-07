@@ -26,6 +26,14 @@ No known problems
 
 ## Release Notes
 
+### 0.0.3
+
+- Metadata enhancements.
+
+### 0.0.2
+
+- README.md file improvements.
+
 ### 0.0.1
 
 Initial release.
